@@ -1,0 +1,61 @@
+[DATASET DESCRIPTION]
+24 columns x 12591077 rows
+
+CONTEXT
+The Iowa Department of Commerce requires that every store that sells alcohol in bottled form for off-the-premises consumption must hold a class "E" liquor license (an arrangement typical of most of the state alcohol regulatory bodies). All alcoholic sales made by stores registered thusly with the Iowa Department of Commerce are logged in the Commerce department system, which is in turn published as open data by the State of Iowa.
+
+CONTENT
+This dataset contains information on the name, kind, price, quantity, and location of sale of sales of individual containers or packages of containers of alcoholic beverages.
+
+COLUMNS DESCRIPTIONS
+Invoice/Item Number       object
+Date                      object
+Store Number               int64
+Store Name                object
+Address                   object
+City                      object
+Zip Code                  object
+Store Location            object
+County Number            float64
+County                    object
+Category                 float64
+Category Name             object
+Vendor Number              int64
+Vendor Name               object
+Item Number                int64
+Item Description          object
+Pack                       int64
+Bottle Volume (ml)         int64
+State Bottle Cost         object
+State Bottle Retail       object
+Bottles Sold               int64
+Sale (Dollars)            object
+Volume Sold (Liters)     float64
+Volume Sold (Gallons)    float64
+
+Example:
+Invoice/Item Number                                         S29198800001
+Date                                                          11/20/2015
+Store Number                                                        2191
+Store Name                                                Keokuk Spirits
+Address                                                        1013 MAIN
+City                                                              KEOKUK
+Zip Code                                                           52632
+Store Location           1013 MAIN\nKEOKUK 52632\n(40.39978, -91.387531)
+County Number                                                         56
+County                                                               Lee
+Category                                                             NaN
+Category Name                                                        NaN
+Vendor Number                                                        255
+Vendor Name                                          Wilson Daniels Ltd.
+Item Number                                                          297
+Item Description                                   Templeton Rye w/Flask
+Pack                                                                   6
+Bottle Volume (ml)                                                   750
+State Bottle Cost                                                 $18.09
+State Bottle Retail                                               $27.14
+Bottles Sold                                                           6
+Sale (Dollars)                                                   $162.84
+Volume Sold (Liters)                                                 4.5
+Volume Sold (Gallons)                                               1.19
+Name: 0, dtype: object
