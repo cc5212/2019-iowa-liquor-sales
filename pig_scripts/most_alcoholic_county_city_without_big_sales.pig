@@ -3,7 +3,7 @@
 
 
 -- Load iowa liquor sales dataset
-liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales.txt' USING PigStorage(';') AS (Invoice, Date, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold, SaleDollars, VolumeSoldLiters:float, VolumeSoldGallons);
+liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales_true.txt' USING PigStorage(';') AS (Invoice, Date, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold, SaleDollars, VolumeSoldLiters:float, VolumeSoldGallons);
 liquor_sales_dataset = FILTER liquor_sales_dataset BY Date != 'Date';
 
 -- Load county population dataset
@@ -18,7 +18,10 @@ city_population_dataset = FILTER city_population_dataset BY County != 'County';
 
 -- Select liquor sales dataset columns and parse date
 liquor_sales_selected_columns = FOREACH liquor_sales_dataset GENERATE Date, City, County, VolumeSoldLiters;
-liquor_sales_dateParsed = FOREACH liquor_sales_selected_columns GENERATE FLATTEN(STRSPLIT(Date,'/',3)) as (month, day, year), City, County, VolumeSoldLiters;
+
+-- Filter sales with more than 15 Liters
+liquor_sales_without_big_sales = FILTER liquor_sales_selected_columns BY (VolumeSoldLiters < 15.0);
+liquor_sales_dateParsed = FOREACH liquor_sales_without_big_sales GENERATE FLATTEN(STRSPLIT(Date,'/',3)) as (month, day, year), City, County, VolumeSoldLiters;
 
 
 -- Compute most alcoholic counties
@@ -43,7 +46,7 @@ county_volume_per_capita_gb_year = GROUP county_volume_per_capita BY (year);
 most_alcoholic_county_by_year = FOREACH county_volume_per_capita_gb_year {sortByMax = ORDER county_volume_per_capita BY volumePerCapita DESC; topMax = LIMIT sortByMax 1; GENERATE FLATTEN(topMax);}
 
 --Save data
-STORE most_alcoholic_county_by_year INTO '/uhadoop2019/grupo6/queries/most_alcoholic_county_city/most_alcoholic_county_by_year';
+STORE most_alcoholic_county_by_year INTO '/uhadoop2019/grupo6/queries/most_alcoholic_county_city_without_big_sales/most_alcoholic_county_by_year';
 
 -- Compute most alcoholic cities
 -- Group by year, city
@@ -59,6 +62,7 @@ city_volumeSold_population_correct = FILTER city_volumeSold_population BY (city_
 
 -- County alcohol volume per capita
 city_volume_per_capita = FOREACH city_volumeSold_population_correct GENERATE city_volumeSold::year as year, city_volumeSold::County as County, city_volumeSold::City as City, city_volumeSold::totalVolume as totalVolume, city_population_dataset::Population as Population, (city_volumeSold::totalVolume/city_population_dataset::Population) as volumePerCapita, city_population_dataset::Coordinates as coordinates;
+city_volume_per_capita = FILTER city_volume_per_capita BY Population > 2000;
 
 -- group by year
 city_volume_per_capita_gb_year = GROUP city_volume_per_capita BY (year);
@@ -67,4 +71,4 @@ city_volume_per_capita_gb_year = GROUP city_volume_per_capita BY (year);
 most_alcoholic_city_by_year = FOREACH city_volume_per_capita_gb_year {sortByMax = ORDER city_volume_per_capita BY volumePerCapita DESC; topMax = LIMIT sortByMax 1; GENERATE FLATTEN(topMax);}
 
 --Save data
-STORE most_alcoholic_city_by_year INTO '/uhadoop2019/grupo6/queries/most_alcoholic_county_city/most_alcoholic_city_by_year/';
+STORE most_alcoholic_city_by_year INTO '/uhadoop2019/grupo6/queries/most_alcoholic_county_city_without_big_sales/most_alcoholic_city_by_year/';

@@ -3,7 +3,7 @@
 
 
 -- Load iowa liquor sales dataset
-liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales.csv' USING PigStorage(';') AS (Invoice, Date:chararray, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold:int, SaleDollars:chararray, VolumeSoldLiters:float, VolumeSoldGallons);
+liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales_true.txt' USING PigStorage(';') AS (Invoice, Date:chararray, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold:int, SaleDollars:chararray, VolumeSoldLiters:float, VolumeSoldGallons);
 liquor_sales_dataset = FILTER liquor_sales_dataset BY Date != 'Date';
 
 -- Select useful columns
@@ -13,7 +13,7 @@ selectColumns = FOREACH liquor_sales_dataset GENERATE Date, SaleDollars, VolumeS
 dateParsed = FOREACH selectColumns GENERATE FLATTEN(STRSPLIT(Date,'/',3)) as (month:int, day:int, year:int), SaleDollars, VolumeSoldLiters, BottlesSold;
 
 -- Parse money and select only month and year from the date
-moneyParsed = FOREACH dateParsed GENERATE month, year, FLATTEN(STRSPLIT(SaleDollars,'\\u0024', 2)) as (nothing:chararray, dollars:chararray), VolumeSoldLiters, BottlesSold;
+moneyParsed = FOREACH dateParsed GENERATE month, year, REPLACE (SaleDollars, '[^\\d.]', '') as dollars, VolumeSoldLiters, BottlesSold;
 moneyParsed2 = FOREACH moneyParsed GENERATE month, year, (float)dollars, VolumeSoldLiters, BottlesSold;
 
 -- Group by year and month
