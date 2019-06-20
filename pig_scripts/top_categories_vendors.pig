@@ -3,7 +3,7 @@
 
 
 -- Load iowa liquor sales dataset
-liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales_10k.csv' USING PigStorage(';') AS (Invoice, Date, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold, SaleDollars, VolumeSoldLiters, VolumeSoldGallons);
+liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales.csv' USING PigStorage(';') AS (Invoice, Date, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold, SaleDollars, VolumeSoldLiters, VolumeSoldGallons);
 liquor_sales_dataset = FILTER liquor_sales_dataset BY Date != 'Date';
 
 
@@ -16,6 +16,8 @@ by_category_count = FOREACH category_grouped GENERATE FLATTEN(group) as (Categor
 by_category_count_sorted = ORDER by_category_count BY categorySales DESC;
 top_10_categories = LIMIT by_category_count_sorted 10;
 
+--Save data categories
+STORE top_10_categories INTO '/uhadoop2019/grupo6/queries/top_categories_vendors/top_categories/';
 
 -- Compute top 10 vendors (by number of sells)
 -- Group by vendor and count
@@ -25,3 +27,6 @@ by_vendor_count = FOREACH vendor_grouped GENERATE FLATTEN(group) as (VendorName)
 -- Sort categories
 by_vendor_count_sorted = ORDER by_vendor_count BY vendorSales DESC;
 top_10_vendors = LIMIT by_vendor_count_sorted 10;
+
+--Save data Vendors
+STORE top_10_vendors INTO '/uhadoop2019/grupo6/queries/top_categories_vendors/top_vendors/';

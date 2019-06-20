@@ -3,7 +3,7 @@
 
 
 -- Load iowa liquor sales dataset
-liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales_10k.csv' USING PigStorage(';') AS (Invoice, Date:chararray, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold:int, SaleDollars:chararray, VolumeSoldLiters:float, VolumeSoldGallons);
+liquor_sales_dataset = LOAD 'hdfs://cm:9000/uhadoop2019/grupo6/data/Iowa_Liquor_Sales.csv' USING PigStorage(';') AS (Invoice, Date:chararray, StoreNumber, StoreName, Address, City, ZipCode, StoreLocation, CountyNumber, County, Category, CategoryName, VendorNumber, VendorName, ItemNumber, ItemDescription, Pack, BottleVolumeML, StateBottleCost, StateBottleRetail, BottlesSold:int, SaleDollars:chararray, VolumeSoldLiters:float, VolumeSoldGallons);
 liquor_sales_dataset = FILTER liquor_sales_dataset BY Date != 'Date';
 
 -- Select useful columns
@@ -21,3 +21,7 @@ yearMonthGrouped = GROUP moneyParsed2 BY (year, month);
 
 -- Get number of transactions, sum of sales (dollars), volume sold (liters) and bottles sold
 yearMonthGrouped_quantity = FOREACH yearMonthGrouped GENERATE FLATTEN(group) as (year, month), COUNT($1) as numberOfTransactions, SUM($1.BottlesSold) as TotalBottles, SUM($1.VolumeSoldLiters) as TotalVolume, SUM($1.dollars) as TotalSales;
+
+
+--Save data
+STORE yearMonthGrouped_quantity INTO '/uhadoop2019/grupo6/queries/query_mensual_liquor_sales/';
