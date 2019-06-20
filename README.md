@@ -2,9 +2,22 @@
 
 # 2019-iowa-liquor-sales
 
-Analysis of Iowa liquor sales database with big data tools. (Jean Cherubini, Aníbal Fuentes, Juan Sáez, Claudio Urbina. Group 6)
+Analysis of Iowa liquor sales database with big data tools, like Pig Latin and Apache Spark. [Jean Cherubini, Aníbal Fuentes, Juan Sáez, Claudio Urbina. Group 6]
 
-## Dataset description
+## Objetivos
+
+El objetivo del presente proyecto es el análisis de datos de ventas de alcohol en el estado de Iowa, EEUU; a través del uso de herramientas de análisis de big data, como Pig Latin y Apache Spark, además de herramientas de visualización de datos como Tableau. Se plantea además como hipótesis que el análisis realizado en el proyecto es una muestra del comportamiento general del consumo de alcohol en estados unidos.
+
+Dentro de las preguntas que se quieren responder se encuentran las siguientes:
+
+* ¿Cuál es el consumo mensual de alcohol en Iowa?, esto tanto en litros, como en dinero gastado en alcohol, número de botellas compradas y cantidad de transacciones.
+* ¿Cuáles son los tipos de alcohol más vendidos? ¿Cuáles son los productores de alcohol con mayor cantidad de ventas?
+* ¿Cuál es el condado y la ciudad más alcoholica cada año? Esto en litros consumidos per capita de forma anual.
+* ¿Es posible visualizar como se comporta el consumo de alcohol por persona en los diferentes estados de Iowa de manera mensual?
+
+Para responder las dos últimas preguntas se utiliza además un dataset que nos indica la población de Iowa por condado y otro dataset que nos indica la población de Iowa por ciudad, esto de manera anual.
+
+## Dataset
 
 ### Attributes of the dataset
 
@@ -34,3 +47,19 @@ Analysis of Iowa liquor sales database with big data tools. (Jean Cherubini, An�
 | Sale (Dollars)        | object  |                           |
 | Volume Sold (Liters)  | float64 |                           |
 | Volume Sold (Gallons) | float64 |                           |
+
+## Métodos
+
+// Detail the methods used during the project. Provide an overview of the techniques/technologies used, why you used them and how you used them. Refer to the source-code delivered with the project. Describe any problems you encountered. //
+
+## Resultados
+
+//Detail the results of the project. Different projects will have different types of results; e.g., run-times or result sizes, evaluation of the methods you're comparing, the interface of the system you've built, and/or some of the results of the data analysis you conducted.//
+
+## Conclusión
+
+//Summarise main lessons learnt. What was easy? What was difficult? What could have been done better or more efficiently?//
+
+## Apéndice
+
+// You can use this for key code snippets that you don't want to clutter the main text. //
