@@ -47,3 +47,19 @@ Para responder las dos últimas preguntas se utiliza además un dataset que nos 
 | Sale (Dollars)        | object  |                           |
 | Volume Sold (Liters)  | float64 |                           |
 | Volume Sold (Gallons) | float64 |                           |
+
+## Métodos
+
+// Detail the methods used during the project. Provide an overview of the techniques/technologies used, why you used them and how you used them. Refer to the source-code delivered with the project. Describe any problems you encountered. //
+
+## Resultados
+
+//Detail the results of the project. Different projects will have different types of results; e.g., run-times or result sizes, evaluation of the methods you're comparing, the interface of the system you've built, and/or some of the results of the data analysis you conducted.//
+
+## Conclusión
+
+//Summarise main lessons learnt. What was easy? What was difficult? What could have been done better or more efficiently?//
+
+## Apéndice
+
+// You can use this for key code snippets that you don't want to clutter the main text. //
