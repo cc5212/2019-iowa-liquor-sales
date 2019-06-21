@@ -101,6 +101,7 @@ Debido a la cantidad de información obtenida, es complejo demostrarlos en el pr
 |WHISKEY LIQUEUR|334572|
 
 ###Distribuidores mas grandes de alcohol:
+
 |Vendor Name|Number of transactions|
 |-|-|
 |Diageo Americas|1684443|
@@ -113,6 +114,8 @@ Debido a la cantidad de información obtenida, es complejo demostrarlos en el pr
 |Sazerac North America|480349|
 |DIAGEO AMERICAS|474104|
 |Sazerac Co., Inc.|458168|
+
+Las visualizaciones generadas corresponden a las ventas mensuales de licor y la cantidad de alcohol vendida per capita mensualmente
 
 
 ## Conclusión
