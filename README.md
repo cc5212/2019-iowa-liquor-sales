@@ -66,6 +66,10 @@ Para presentar un mejor entendimiento del comportamiento general de los datos se
 
 * ¿Cuáles son los productores de alcohol con mayor cantidad de ventas?, idéntico al caso anterior, pero agrupando por vendedor.
 
+* ¿Cuál es el condado más alcohólico cada año? Para esto se utiliza el dataset de venta de alcohol y un dataset de población por condado de forma anual. Se agrupan las ventas de alcohol por año y por condado; y para cada litro se calcula la suma del volumen de alcohol vendido; luego se realiza un join con el dataset de población, mediante el año y el nombre del condado, y se divide el volumen de alcohol vendido por la población del condado. Luego este resultado se agrupa por año, se ordena por volumen per cápita y se toma el primer resultado; obteniendo así el condado más alcoholico. Este proceso se realizó en pig mediante el script most_alcoholic_county_city_without_big_sales.pig.
+
+* ¿Es posible visualizar como se comporta el consumo de alcohol por persona en los diferentes estados de Iowa de manera mensual? Para esto se realizó un script en apache spark que mapea por condado, año y mes y reduce sumando el número de litros vendidos; luego mapea por condado y año y realiza un join con la tabla de población (también por condado y año); finalmente divide el volumen comprado con la población del condado. Este proceso se describe en el anexo 4.
+
 Es necesario recalcar que algunos problemas encontrados al momento de procesar los datos fueron por ejemplo la existencia de saltos de linea en el set de datos que eran interpretados de forma incorrecta tanto por Pig como por Spark; por ende fue necesario realizar un preprocesamiento de los datos, en este caso, en python; el cual fue realizado por partes, con el uso de la librería pandas.
 
 ## Resultados
@@ -151,11 +155,11 @@ Posteriormente estos datos se visualizan con el uso del software tableau, realiz
 
 ## Conclusión
 
-//Summarise main lessons learnt. What was easy? What was difficult? What could have been done better or more efficiently?//
-
 Respecto a las consultas realizadas se concluye que mediante las herramientas se pudo extraer información valiosa y representativa del consumo de alcohol en Iowa, EEUU. En particular se puede observar cuales son los fabricantes con una mayor cantidad de ventas y los tipos de alcohol más consumidos. Además se puede apreciar como es el comportamiento de la venta de alcohol durante el año, la cual tiene un peak en los meses finales del año (Noviembre y Diciembre), y que calza con que en esta época disminuye el ratio volumen de alcohol/dinero gastado en alcohol, lo que nos indica que o los precios aumentan en esta época o se tiende a comprar alcohol de mayor precio.
 
 Fue posible además realizar una visualización geográfica y temporal del consumo de alcohol per cápita, permitiéndonos reconocer que en ciertas épocas del año el consumo de alcohol tiende a aumentar de manera considerable, esto en particular en el mes de Julio y en los meses de Noviembre y Diciembre. Se asocia esto a una mayor cantidad de festividades durante esos meses. Además es posible reconocer mediante esta misma visualización cuales son los condados con una mayor venta de alcohol por persona, reconociendo que el condado de Dickinson es el que presenta una mayor venta de alcohol por población, alcanzando el peak en Junio del 2015 con una venta de alcohol de 0.7 Litros por persona.
+
+Es necesario recalcar que el proyecto presentó las dificultades de que existieron una gran cantidad de errores leyendo los datos, esto en particular porque los datos presentaban saltos de línea entre el texto o presentaban caracteres en el texto que eran idénticos al caracter que separaba las columnas.
 
 Se concluye que en el proyecto se aplicaron de manera exitosa algunas de las herramientas de big data aprendidas en el curso, en particular Apache Pig y Apache Spark. Se recalca la gran utilidad de estas herramientas, la primera en particular por su simplicidad para realizar consultas y la segunda por su eficacia y gran desempeño, al hacer uso eficiente de la memoria.
 
@@ -163,31 +167,31 @@ Se concluye que en el proyecto se aplicaron de manera exitosa algunas de las her
 
 1. Consumo mensual de alcohol en Iowa
 
-data_grouped = GROUP data BY (year, month);
+  - data_grouped = GROUP data BY (year, month);
 
-result = FOREACH data_grouped GENERATE FLATTEN group, SUM(volume), sum(dollars);
+  - result = FOREACH data_grouped GENERATE FLATTEN group, SUM(volume), sum(dollars);
 
 
 2. Categorías de alcohol más populares
 
-category_grouped = GROUP data BY category;
+  - category_grouped = GROUP data BY category;
 
-category_counts = FOREACH category_grouped GENERATE FLATTEN group, COUNT($1);
+  - category_counts = FOREACH category_grouped GENERATE FLATTEN group, COUNT($1);
 
-category_counts_sorted = ORDER category_counts BY numberOfTransactions DESC;
+  - category_counts_sorted = ORDER category_counts BY numberOfTransactions DESC;
 
-result = LIMIT category_counts_sorted 10;
+  - result = LIMIT category_counts_sorted 10;
 
 
 3. Fabricantes más populares
 
-vendor_grouped = GROUP data BY vendor;
+  - vendor_grouped = GROUP data BY vendor;
 
-vendor_counts = FOREACH vendor_grouped GENERATE FLATTEN group, COUNT($1);
+  - vendor_counts = FOREACH vendor_grouped GENERATE FLATTEN group, COUNT($1);
 
-vendor_counts_sorted = ORDER vendor_counts BY numberOfTransactions DESC;
+  - vendor_counts_sorted = ORDER vendor_counts BY numberOfTransactions DESC;
 
-result = LIMIT vendor_counts_sorted 10;
+  - result = LIMIT vendor_counts_sorted 10;
 
 4. Consumo mensual de alcohol per capita
 
