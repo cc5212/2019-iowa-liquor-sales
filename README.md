@@ -153,6 +153,11 @@ Posteriormente estos datos se visualizan con el uso del software tableau, realiz
 
 //Summarise main lessons learnt. What was easy? What was difficult? What could have been done better or more efficiently?//
 
+Respecto a las consultas realizadas se concluye que mediante las herramientas se pudo extraer información valiosa y representativa del consumo de alcohol en Iowa, EEUU. En particular se puede observar cuales son los fabricantes con una mayor cantidad de ventas y los tipos de alcohol más consumidos. Además se puede apreciar como es el comportamiento de la venta de alcohol durante el año, la cual tiene un peak en los meses finales del año (Noviembre y Diciembre), y que calza con que en esta época disminuye el ratio volumen de alcohol/dinero gastado en alcohol, lo que nos indica que o los precios aumentan en esta época o se tiende a comprar alcohol de mayor precio.
+
+Fue posible además realizar una visualización geográfica y temporal del consumo de alcohol per cápita, permitiéndonos reconocer que en ciertas épocas del año el consumo de alcohol tiende a aumentar de manera considerable, esto en particular en el mes de Julio y en los meses de Noviembre y Diciembre. Se asocia esto a una mayor cantidad de festividades durante esos meses. Además es posible reconocer mediante esta misma visualización cuales son los condados con una mayor venta de alcohol por persona, reconociendo que el condado de Dickinson es el que presenta una mayor venta de alcohol por población, alcanzando el peak en Junio del 2015 con una venta de alcohol de 0.7 Litros por persona.
+
+Se concluye que en el proyecto se aplicaron de manera exitosa algunas de las herramientas de big data aprendidas en el curso, en particular Apache Pig y Apache Spark. Se recalca la gran utilidad de estas herramientas, la primera en particular por su simplicidad para realizar consultas y la segunda por su eficacia y gran desempeño, al hacer uso eficiente de la memoria.
 
 ## Apéndice
 
