@@ -54,8 +54,6 @@ Esto se debe a que todas las ventas de bebidas alcoholizas deben ser registradas
 
 ## Métodos
 
-// Detail the methods used during the project. Provide an overview of the techniques/technologies used, why you used them and how you used them. Refer to the source-code delivered with the project. Describe any problems you encountered. //
-
 Se utilizaron principalmente Pig y Spark para realizar consultas sobre la base de datos. En principio, se utilizó Pig debido a su simplicidad al momento de hacer las consultas y almacenarlas. Se utilizó Spark debido a que una de las consultas era mas compleja, pues  y se necesitó procesar y realizar JOINS complejos y pesados sobre la base de datos. Como Spark hace uso de la memoria de manera más eficiente, se obtuvieron los resultados mas rápidamente que en Pig.
 
 Para presentar un mejor entendimiento del comportamiento general de los datos se comenzó realizando consultas sencillas en pig, las consultas realizadas fueron para responder las preguntas:
