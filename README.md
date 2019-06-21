@@ -56,9 +56,13 @@ Esto se debe a que todas las ventas de bebidas alcoholizas deben ser registradas
 
 // Detail the methods used during the project. Provide an overview of the techniques/technologies used, why you used them and how you used them. Refer to the source-code delivered with the project. Describe any problems you encountered. //
 
-Se utilizaron principalmente Pig y Spark para realizar consultas sobre la base de datos. En principio, se utilizó Pig debido a su simplicidad al momento de hacer las consultas y almacenarlas. Se utilizó Spark debido a que una de las consultas era mas compleja, pues  y se necesitó procesar y realizar JOINS complejos y pesados sobre la base de datos. Como Spark divide el trabajo de manera mas apropiada, se obtuvieron los resultados mas rápidamente que en Pig.
+Se utilizaron principalmente Pig y Spark para realizar consultas sobre la base de datos. En principio, se utilizó Pig debido a su simplicidad al momento de hacer las consultas y almacenarlas. Se utilizó Spark debido a que una de las consultas era mas compleja, pues  y se necesitó procesar y realizar JOINS complejos y pesados sobre la base de datos. Como Spark hace uso de la memoria de manera más eficiente, se obtuvieron los resultados mas rápidamente que en Pig.
 
-Algunos problemas encontrados fueron por ejemplo que debido a saltos de linea presentes en el set de datos que eran interpretados de forma incorrecta tanto por Pig como por Spark, fue necesario realizar un preprocesamiento de los datos, en este caso, en python.
+Para presentar un mejor entendimiento del comportamiento general de los datos se comenzó realizando consultas sencillas en pig, las consultas realizadas fueron para responder las preguntas:
+
+* ¿Cuál es el consumo mensual de alcohol en Iowa?, esto tanto en litros, como en dinero gastado en alcohol, número de botellas compradas y cantidad de transacciones. Para responder esto se utilizaron las consultas presentadas en pseudo-código en el apéndice 1.
+
+Algunos problemas encontrados al momento de procesar los datos fueron por ejemplo la existencia de saltos de linea en el set de datos que eran interpretados de forma incorrecta tanto por Pig como por Spark; por ende fue necesario realizar un preprocesamiento de los datos, en este caso, en python; el cual fue realizado por partes, con el uso de la librería pandas.
 
 ## Resultados
 
@@ -66,7 +70,7 @@ Algunos problemas encontrados fueron por ejemplo que debido a saltos de linea pr
 
 Debido a la cantidad de información obtenida, es complejo demostrarlos en el presente texto, por lo que se generaron visualizaciones utilizando Tableau para describirlas. Los resultados que si se pueden presentar aquí son:
 
-###Ciudad mas alcoholica:
+#### Ciudad mas alcoholica:
 
 |Year|County|City|Total Volume Sold (Liters)|Population|Liters per capita|County coordinates|
 |----|------|----|--------------------------|----------|-----------------|------------------|
@@ -76,7 +80,7 @@ Debido a la cantidad de información obtenida, es complejo demostrarlos en el pr
 |2015|Polk|WINDSOR HEIGHTS|93153.36005|5021|18.55275046|(41.6855048, -93.5735335)|
 |2016|Polk|WINDSOR HEIGHTS|31796.97002|5010|6.346700602|(41.6855048, -93.5735335)|
 
-###Condado mas alcoholico:
+#### Condado mas alcoholico:
 
 |Year|County|Total Volume Sold (Liters)|Population|Liters per capita|County coordinates|
 |----|------|--------------------------|----------|-----------------|------------------|
@@ -87,7 +91,7 @@ Debido a la cantidad de información obtenida, es complejo demostrarlos en el pr
 |2016|Dickinson|101514.13|17104|5.935110503|(43.3779848, -95.1508301)|
 |2017|Adair|4410.250002|7054|0.625212646|(41.3307464, -94.4709413)|
 
-###Categorias de alcohol mas consumidas:
+#### Categorias de alcohol mas consumidas:
 
 |Category Name|Number of transactions|
 |-|-|
@@ -102,7 +106,7 @@ Debido a la cantidad de información obtenida, es complejo demostrarlos en el pr
 |PUERTO RICO & VIRGIN ISLANDS RUM|395376|
 |WHISKEY LIQUEUR|334572|
 
-###Distribuidores mas grandes de alcohol:
+#### Distribuidores mas grandes de alcohol:
 
 |Vendor Name|Number of transactions|
 |-|-|
@@ -127,4 +131,19 @@ Las visualizaciones generadas corresponden a las ventas mensuales de licor y la 
 
 ## Apéndice
 
-// You can use this for key code snippets that you don't want to clutter the main text. //
+1. Consumo mensual de alcohol en Iowa
+data_grouped = GROUP data BY (year, month);
+result = FOREACH data_grouped GENERATE FLATTEN group, SUM(volume), sum(dollars);
+
+2. Categorías de alcohol más populares
+category_grouped = GROUP data BY category;
+category_counts = FOREACH category_grouped GENERATE FLATTEN group, COUNT($1);
+category_counts_sorted = ORDER category_counts BY numberOfTransactions DESC;
+result = LIMIT category_counts_sorted 10;
+
+3. Fabricantes más populares
+vendor_grouped = GROUP data BY vendor;
+vendor_counts = FOREACH vendor_grouped GENERATE FLATTEN group, COUNT($1);
+vendor_counts_sorted = ORDER vendor_counts BY numberOfTransactions DESC;
+result = LIMIT vendor_counts_sorted 10;
+
