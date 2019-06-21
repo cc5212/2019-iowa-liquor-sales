@@ -132,6 +132,23 @@ Se presenta el resultado en la siguiente visualización.
 
 ![alt text](https://github.com/cc5212/2019-iowa-liquor-sales/blob/master/plots/both_v2.png)
 
+#### Consumo mensual de alcohol per cápita, separado por estado.
+
+Se realiza la consulta en spark y se obtiene una tabla de la siguiente estructura:
+
+|County|	Year|	Month|	Volume per capita	|County Coordinates|
+|-|-|-|-|-|
+|Adair|	2012|	1	|0.0766015	|(41.3307464, -94.4709413)|
+|Adams|	2012|	1	|0.047326682	|(41.0289839, -94.6991849)|
+|Allamakee|	2012|	1	|0.078053905	|(43.2842838, -91.3780923)|
+|Appanoose|	2012|	1	|0.070615457	|(40.7431635, -92.8686104)|
+|Audubon|	2012|	1	|0.056098892	|(41.6845893, -94.9058222)|
+
+Posteriormente estos datos se visualizan con el uso del software tableau, realizando así una visualización del consumo de alcohol (volumen per capita) de forma mensual en los distintos estados de Iowa, tal como se presenta en el siguiente gif.
+
+![alt text](https://github.com/cc5212/2019-iowa-liquor-sales/blob/master/plots/liquor_per_capita.gif)
+
+
 ## Conclusión
 
 //Summarise main lessons learnt. What was easy? What was difficult? What could have been done better or more efficiently?//
