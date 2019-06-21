@@ -189,3 +189,14 @@ vendor_counts_sorted = ORDER vendor_counts BY numberOfTransactions DESC;
 
 result = LIMIT vendor_counts_sorted 10;
 
+4. Consumo mensual de alcohjol per capita
+
+  1) Generacion de 2 RDD desde datasets: liquor_sales_dataset_all y county_population_by_year_all
+  2) Select filas utiilzables de liquor_sales_dataset_all en RDD creando el mapeo "map(County#Month#Year, Lts)." en "select_columns_liquor "
+  3) Select filas utilizables de county_population_by_year_all creando el mapeo  "map(County#Year, Population, Coordinates)." en "select_columns_population"
+  4) Select group "select_columns_liquor" por año y mes
+  5) Map yearMonthGrouped como (County#Year, Month, Lts) en "county_map"
+  6) Join entre "county_map" y "select_columns_population" como (County#Year, ((Month, Lts), (Population, Coordinates)))
+  7) Retornar Join
+
+
