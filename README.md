@@ -18,10 +18,10 @@ Dentro de las preguntas que se quieren responder se encuentran las siguientes:
 Para responder las dos últimas preguntas se utiliza además un dataset que nos indica la población de Iowa por condado y otro dataset que nos indica la población de Iowa por ciudad, esto de manera anual.
 
 ## Dataset
-## Iowa Liquor Sells 
+### Iowa Liquor Sells 
 Este set de datos contiene informacion del nombre, tipo, precio, cantidad y ubicacion de ventas de contenedores individuales o paquetes de bebidas alcoholicas. En el estado de Iowa, Estados Unidos.
 Esto se debe a que todas las ventas de bebidas alcoholizas deben ser registradas apropiadamente en el sistema del Departamento de Comercio de Iowa. Esta data está catalogada como open data por el mismo Departamento, como se establece en https://data.iowa.gov/Sales-Distribution/Iowa-Liquor-Sales/m3tr-qhgy.
-### Attributes of the dataset
+#### Attributes of the dataset
 
 | Column Name           | Type    | Description               |
 | --------------------- | ------- | ------------------------- |
@@ -64,7 +64,7 @@ Algunos problemas encontrados fueron por ejemplo que debido a saltos de linea pr
 
 Debido a la cantidad de información obtenida, es complejo demostrarlos en el presente texto, por lo que se generaron visualizaciones utilizando Tableau para describirlas. Los resultados que si se pueden presentar aquí son:
 
-Ciudad mas alcoholica:
+###Ciudad mas alcoholica:
 
 |Year|County|City|Total Volume Sold (Liters)|Population|Liters per capita|County coordinates|
 |----|------|----|--------------------------|----------|-----------------|------------------|
@@ -74,7 +74,7 @@ Ciudad mas alcoholica:
 |2015|Polk|WINDSOR HEIGHTS|93153.36005|5021|18.55275046|(41.6855048, -93.5735335)|
 |2016|Polk|WINDSOR HEIGHTS|31796.97002|5010|6.346700602|(41.6855048, -93.5735335)|
 
-Condado mas alcoholico:
+###Condado mas alcoholico:
 
 |Year|County|Total Volume Sold (Liters)|Population|Liters per capita|County coordinates|
 |----|------|--------------------------|----------|-----------------|------------------|
@@ -84,6 +84,36 @@ Condado mas alcoholico:
 |2015|Dickinson|142531.24|16990|8.389125371|(43.3779848, -95.1508301)|
 |2016|Dickinson|101514.13|17104|5.935110503|(43.3779848, -95.1508301)|
 |2017|Adair|4410.250002|7054|0.625212646|(41.3307464, -94.4709413)|
+
+###Categorias de alcohol mas consumidas:
+
+|Category Name|Number of transactions|
+|-|-|
+|VODKA 80 PROOF|1265974|
+|CANADIAN WHISKIES|936212|
+|STRAIGHT BOURBON WHISKIES|543684|
+|SPICED RUM|530323|
+|VODKA FLAVORED|502813|
+|BLENDED WHISKIES|441610|
+|TEQUILA|435298|
+|IMPORTED VODKA|404048|
+|PUERTO RICO & VIRGIN ISLANDS RUM|395376|
+|WHISKEY LIQUEUR|334572|
+
+###Distribuidores mas grandes de alcohol:
+|Vendor Name|Number of transactions|
+|-|-|
+|Diageo Americas|1684443|
+|Jim Beam Brands|1228550|
+|Luxco-St Louis|1044534|
+|Pernod Ricard USA/Austin Nichols|627973|
+|Constellation Wine Company, Inc.|538552|
+|Bacardi U.S.A., Inc.|489599|
+|Heaven Hill Brands|488173|
+|Sazerac North America|480349|
+|DIAGEO AMERICAS|474104|
+|Sazerac Co., Inc.|458168|
+
 
 ## Conclusión
 
